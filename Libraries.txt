@@ -1,0 +1,4 @@
+libraries included in this project:
+
+pika
+bluetooth

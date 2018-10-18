@@ -1,6 +1,6 @@
 import argparse
 
-def bridge_parser():
+def client_parser():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('-proc', dest='proc_ip',

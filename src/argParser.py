@@ -4,16 +4,16 @@ import optparse
 def client_parser():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-proc', dest='proc_ip',
+    parser.add_argument('-proc', dest='proc_ip',required = True,
                         help='Setting the processor IP')
 
-    parser.add_argument('-action', dest='action_param',
+    parser.add_argument('-action', dest='action_param',required = True,
                         help='Setting the action')
 
-    parser.add_argument('-book', dest='book_info',
+    parser.add_argument('-book', dest='book_info',required = False,
                         help='Setting the book info')
 
-    parser.add_argument('-count', dest='count_value',
+    parser.add_argument('-count', dest='count_value',required = False,
                         help='Set the Bought/Sell Values')
 
     return parser

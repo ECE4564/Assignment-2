@@ -2,7 +2,7 @@
 import pika
 import uuid
 
-class FibonacciRpcClient(object):
+class sendClientRequest(object):
     def __init__(self):
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
 
@@ -32,7 +32,7 @@ class FibonacciRpcClient(object):
             self.connection.process_data_events()
         return int(self.response)
 
-fibonacci_rpc = FibonacciRpcClient()
+fibonacci_rpc = sendClientRequest()
 
 print(" [x] Requesting fib(30)")
 response = fibonacci_rpc.call(30)

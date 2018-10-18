@@ -9,5 +9,5 @@ def check(args):
     if args.action_param == 'ADD':
         d = json.loads(str(args.book_info))
         NameFlag = True if 'Name' in d['Msg'][0]['BookInfo'] else False
-    return NameFlag
+        return NameFlag
 

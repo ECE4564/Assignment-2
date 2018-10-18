@@ -16,8 +16,6 @@ def client_parser():
     parser.add_argument('-count', dest='count_value',
                         help='Set the Bought/Sell Values')
 
-    #parser.add_argument('--version', action='version', version='%(prog)s 1.0')
-
     return parser
 
 def processor_parser():

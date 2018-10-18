@@ -35,5 +35,4 @@ def prep(args):
                 'Action ' : str(args.action_param),
                 'Msg ' : {}
                 }
-        }
         return (json.dumps(dic))

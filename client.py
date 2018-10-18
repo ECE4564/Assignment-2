@@ -2,7 +2,7 @@ import pika
 from src.argParser import client_parser
 from src.checkAction import check
 from src.clientPayload import prep
-import src.clientSendRq
+from src.clientSendRq import sendClientRequest
 import time
 import sys
 
@@ -15,3 +15,8 @@ if not argFlag:
 
 #preparing the payload
 payload = prep(args)
+
+queue = sendClientRequest()
+print(" [x] Requesting fib(30)")
+response = queue.call(30)
+print(" [.] Got %r" % response)

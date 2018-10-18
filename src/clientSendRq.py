@@ -16,6 +16,7 @@ class sendClientRequest(object):
 
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
+            print("get response")
             self.response = body
 
     def call(self, n):
@@ -31,9 +32,3 @@ class sendClientRequest(object):
         while self.response is None:
             self.connection.process_data_events()
         return int(self.response)
-
-fibonacci_rpc = sendClientRequest()
-
-print(" [x] Requesting fib(30)")
-response = fibonacci_rpc.call(30)
-print(" [.] Got %r" % response)

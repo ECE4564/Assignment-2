@@ -1,0 +1,12 @@
+libraries included in this project:
+
+pika
+
+2. bluetooth:
+sudo apt-get update
+sudo apt-get install python-pip python-dev ipython
+
+sudo apt-get install bluetooth libbluetooth-dev
+sudo pip3 install pybluez
+
+DO NOT NAME YOUR FILE BLUETOOTH.py

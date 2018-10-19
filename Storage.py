@@ -14,7 +14,7 @@ server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 port = 1
 # Get mac address
 mac = get_bluetooth_mac_addr()
-print(strftime("[%H:%M:%S] ", gmtime()) + "Created socket at " + mac + " on por$
+print(strftime("[%H:%M:%S] ", gmtime()) + "Created socket at " + mac + " on port " str(port)) 
 server_sock.bind(("",port))
 
 # List for clients
@@ -22,7 +22,7 @@ print(strftime("[%H:%M:%S] ", gmtime()) + "Listening for client connections")
 server_sock.listen(1)
 
 client_sock,address = server_sock.accept()
-print(strftime("[%H:%M:%S] ", gmtime()) + " Accepted connection from " + str(ad$
+print(strftime("[%H:%M:%S] ", gmtime()) + " Accepted connection from " + str(address) + " on port " + str(port))
 
 data = client_sock.recv(1024).decode("utf-8")
 print(strftime("[%H:%M:%S] ", gmtime()) + " Received Payload: " + str(data))

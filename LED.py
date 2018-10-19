@@ -7,6 +7,7 @@ blue = 21
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
+GPIO.cleanup()
 GPIO.setup(red,GPIO.OUT)
 GPIO.setup(green,GPIO.OUT)
 GPIO.setup(blue,GPIO.OUT)
@@ -65,4 +66,10 @@ class LED:
         time.sleep(0.5)
         GPIO.output(blue, GPIO.LOW)
         time.sleep(0.5)
-        
+
+    def turnOff(self):
+        # Turn off every LED
+        GPIO.output(red, GPIO.LOW)
+        GPIO.output(green, GPIO.LOW)
+        GPIO.output(blue, GPIO.LOW)
+

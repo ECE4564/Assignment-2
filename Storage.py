@@ -14,7 +14,7 @@ server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 port = 1
 # Get mac address
 mac = get_bluetooth_mac_addr()
-print(strftime("[%H:%M:%S] ", gmtime()) + "Created socket at " + mac + " on port " str(port)) 
+print(strftime("[%H:%M:%S] ", gmtime()) + "Created socket at " + mac + " on port " + str(port)) 
 server_sock.bind(("",port))
 
 # List for clients

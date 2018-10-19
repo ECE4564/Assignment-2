@@ -1,5 +1,6 @@
 from time import gmtime, strftime
 from subprocess import check_output
+from src.argParser import storage_parser
 import bluetooth
 import LED
 
@@ -8,6 +9,11 @@ def get_bluetooth_mac_addr():
     chunks = addr_info.split('\t')
     mac_addr = chunks[-1][:-1]
     return mac_addr
+
+args = client_parser().parse_args()
+argFlag = check (args)
+if not argFlag:
+    sys.exit(0)
 
 server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 

@@ -15,8 +15,8 @@ class MongoDB:
         self.collection = self.db.collection
         self.posts = self.db.posts
 
-    def insert(self, post):
-        self.post_id = self.posts.insert_one(post).inserted_id
+    def insert(self, new_book):
+        self.post_id = self.posts.insert_one(new_book).inserted_id
         # store post IDs in a dictionary?
 
     def find(self, query):
@@ -24,8 +24,24 @@ class MongoDB:
 
     def list_all(self):
         # returns all posts in the db
-        for post in self.posts.find():
-            return post
+        cursor = self.posts.find({})
+        for document in cursor:
+            print(document)
 
-    def increase_stock(self, title, increase_num):
-        self.collection.update()
+    def change_stock(self, title, new_stock):
+        # self.collection.update_one(title, {"$set": {"Stock": new_stock}})
+        self.posts.update_one(title, {"$set": {"Stock": new_stock}})
+
+    def remove(self, post):
+        result = self.posts.delete_one(post)
+        if result.deleted_count == 1:
+            return True
+        else:
+            return False
+
+    def clear_db(self):
+        self.db.drop_collection(self.posts)
+
+    def get_stock(self, title):
+        found_book = self.posts.find_one(title)
+        return found_book['Stock']

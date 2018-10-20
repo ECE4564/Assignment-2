@@ -15,11 +15,12 @@ test_post1 = {"Author": "Stephen King",
 
 db1.insert(test_post1)
 
-#print(db1.find({"Author": "Stephen King"}))
+# print(db1.find({"Author": "Stephen King"}))
 
 db1.change_stock({"Name": "It"}, 6)
 
-#print(db1.find({"Name": "It"}))
+print('test find')
+print(db1.find({"Name": "It", "Author": "Stephen King"}))
 
 test_post2 = {"Author": "Herman Melville",
               "Name": "Moby Dick",
@@ -27,18 +28,18 @@ test_post2 = {"Author": "Herman Melville",
 
 db1.insert(test_post2)
 
-#print(db1.find({"Name": "Moby Dick"}))
+# print(db1.find({"Name": "Moby Dick"}))
 
 print("First list all")
 temp_list = db1.list_all()
-for p in temp_list:
-    print(p)
+print(*temp_list, sep='\n')
 
 db1.remove({"Name": "It"})
+db1.change_stock({"Name": "Moby Dick"}, - 3)
 
 print("Second list all")
 temp_list = db1.list_all()
-for p in temp_list:
-    print(p)
+print(*temp_list, sep='\n')
 
+print('print get stock:')
 print(db1.get_stock({"Name": "Moby Dick"}))

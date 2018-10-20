@@ -25,8 +25,10 @@ class MongoDB:
     def list_all(self):
         # returns all posts in the db
         cursor = self.posts.find({})
+        all_books = []
         for document in cursor:
-            print(document)
+            all_books.append(document)
+        return all_books
 
     def change_stock(self, title, new_stock):
         # self.collection.update_one(title, {"$set": {"Stock": new_stock}})

@@ -30,11 +30,15 @@ db1.insert(test_post2)
 #print(db1.find({"Name": "Moby Dick"}))
 
 print("First list all")
-db1.list_all()
+temp_list = db1.list_all()
+for p in temp_list:
+    print(p)
 
 db1.remove({"Name": "It"})
 
 print("Second list all")
-db1.list_all()
+temp_list = db1.list_all()
+for p in temp_list:
+    print(p)
 
 print(db1.get_stock({"Name": "Moby Dick"}))

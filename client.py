@@ -12,12 +12,13 @@ args = client_parser().parse_args()
 argFlag = check (args)
 if not argFlag:
     sys.exit(0)
+ipadd = args.proc_ip
 
 #preparing the payload
 payload = prep(args)
 
 #setting up the RabbitMQ queue
-queue = sendClientRequest()
+queue = sendClientRequest(ipadd)
 print(" [x] Requesting")
 response = queue.call(payload)
 print(" [.] Got %r" % response)

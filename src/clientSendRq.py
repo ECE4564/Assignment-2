@@ -3,8 +3,8 @@ import pika
 import uuid
 
 class sendClientRequest(object):
-    def __init__(self):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+    def __init__(self,ipadd):
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(ipadd))
 
         self.channel = self.connection.channel()
 

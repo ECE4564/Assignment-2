@@ -17,11 +17,11 @@ channel = connection.channel()
 channel.queue_declare(queue='rpc_queue')
 
 def send_command(command):
-    print("["+time.ctime()+"]" + " Checkpoint  03: Connecting to"+ bt_strorage +" on port " + port)
-	sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+	print("["+time.ctime()+"]" + " Checkpoint  03: Connecting to"+ bt_strorage +" on port " + port)
+	sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 	sock.connect((bt_strorage, port)) #first port in bluetooth
 	
-	print "Sending command (%s)" % command
+	print ("Sending command (%s)" % command)
 	sock.send(command)
 	sock.settimeout(4)
 	response = ""
@@ -36,9 +36,9 @@ def send_command(command):
 	except:
 		pass
 
-    print("["+time.ctime()+"]" + " Checkpoint  04: Received answer payload :"+response)
+	print("["+time.ctime()+"]" + " Checkpoint  04: Received answer payload :"+response)
 	sock.close() 
-    return response
+	return response
 
 def connectblue(messageFromClient):
     return send_command(messageFromClient)

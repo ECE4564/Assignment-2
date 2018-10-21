@@ -65,7 +65,7 @@ def MongoControl():
 
     # send result
     # something like:
-    # client_sock.send(payload["Msg"] = db_result
+    client_sock.send(json.dumps({'Name': 'Michael'}));
 
     client_sock.close()
     server_sock.close()

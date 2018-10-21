@@ -16,7 +16,8 @@ if not argFlag:
 #preparing the payload
 payload = prep(args)
 
+#setting up the RabbitMQ queue
 queue = sendClientRequest()
 print(" [x] Requesting fib(30)")
-response = queue.call(30)
+response = queue.call(payload)
 print(" [.] Got %r" % response)

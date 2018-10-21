@@ -21,13 +21,13 @@ def client_parser():
 def processor_parser():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-storage', dest='bt_addr',
+    parser.add_argument('-storage', dest='bt_addr',required = True,
                         help='Setting the Bluetooth Mac Addr')
 
-    parser.add_argument('-p', dest='port_num',
+    parser.add_argument('-p', dest='port_num',required = True,
                         help='Setting the port number')
 
-    parser.add_argument('-z', dest='socket_size',
+    parser.add_argument('-z', dest='socket_size',required = True,
                         help='Setting the socket size')
 
     return parser

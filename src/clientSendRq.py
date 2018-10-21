@@ -4,7 +4,7 @@ import uuid
 
 class sendClientRequest(object):
     def __init__(self):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 
         self.channel = self.connection.channel()
 
@@ -16,7 +16,6 @@ class sendClientRequest(object):
 
     def on_response(self, ch, method, props, body):
         if self.corr_id == props.correlation_id:
-            print("get response")
             self.response = body
 
     def call(self, n):
@@ -31,4 +30,4 @@ class sendClientRequest(object):
                                    body=str(n))
         while self.response is None:
             self.connection.process_data_events()
-        return int(self.response)
+        return (self.response)

@@ -5,8 +5,6 @@ import pymongo
 
 class MongoDB:
 
-    post_id = ''
-
     def __init__(self):
         # open default port and host (local client)
         self.client = pymongo.MongoClient()
@@ -16,14 +14,19 @@ class MongoDB:
         self.posts = self.db.posts
 
     # inserts a new book into the database
-    # requires full information in JSON format, including a stock value of 0
+    # requires full information in JSON format, automatically set stock value of 0
     def insert(self, new_book):
-        self.post_id = self.posts.insert_one(new_book).inserted_id
-        # store post IDs in a dictionary?
+        # check if the book is already in the database
+        try:
+            new_book['stock'] = 0
+            post_id = self.posts.insert_one(new_book).inserted_id
+        except:
+            return "Error: Unable to add. Book already exists"
+        return "OK: Successfully inserted. Book id " + str(post_id)
 
     # query the database to find a book, search by title, author, or both
     def find(self, query):
-        return self.posts.find_one(query)
+        return str(self.posts.find_one(query))
 
     # list all books in the database, returns a list object containing JSON elements
     def list_all(self):
@@ -41,17 +44,21 @@ class MongoDB:
     def change_stock(self, book, stock_change):
         # self.collection.update_one(title, {"$set": {"Stock": new_stock}})
         found_book = self.posts.find_one(book)
-        old_stock = found_book["Stock"]
-        self.posts.update_one(book, {"$set": {"Stock": old_stock + stock_change}})
+        old_stock = found_book['stock']
+        if old_stock + stock_change > 0:  # ensure stock does not go below zero
+            self.posts.update_one(book, {"$set": {"stock": old_stock + stock_change}})
+            return "OK: " + str(found_book) + "Stock: " + str(old_stock + stock_change)
+        else:
+            return "Error: Stock is not enough"
 
     # remove a book from the database
     # returns a boolean if wanted
     def remove(self, book):
         result = self.posts.delete_one(book)
         if result.deleted_count == 1:
-            return True
+            return "OK: Successfully deleted."
         else:
-            return False
+            return "Book not found in database"
 
     # clears the database, this can be used to remove duplicate objects in the database when testing
     def clear_db(self):
@@ -60,4 +67,4 @@ class MongoDB:
     # returns the current stock of a book
     def get_stock(self, title):
         found_book = self.posts.find_one(title)
-        return found_book['Stock']
+        return str(found_book['stock'])

@@ -13,8 +13,9 @@ GPIO.setup(green,GPIO.OUT)
 GPIO.setup(blue,GPIO.OUT)
 
 class LED:
-    def __init__(self, size):
+    def __init__(self, size, stop):
         self.size = size
+        self.stop = stop
 
     def showVarieties(self):
         ones = int(self.size%10)

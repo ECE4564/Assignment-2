@@ -16,9 +16,13 @@ def get_bluetooth_mac_addr():
 
 def signal_handler(sig, frame):
     print("\nExitting program...")
-    kill_program = 1
+    led.stop = True
     threadLED.join()
     sys.exit(0)
+
+def checkprogram():
+    print('Kill val: ', kill_program)
+    return kill_program
 
 def MongoControl():
     # Get mac address
@@ -37,7 +41,6 @@ def MongoControl():
     print(strftime("[%H:%M:%S] ", gmtime()) + " Received Payload: " + str(data))
 
     # when data is received, initialize MongoDB
-    db = MongoDB.MongoDB()
     db_result = ""
 
     # update database based on received action
@@ -68,13 +71,15 @@ def MongoControl():
     server_sock.close()
 
 def LEDShow():
-    while(1):
-        led = LED.LED(254)
+    while(led.stop == False):
+       # db_result = db.list_all()
+       # led.size = len(db_result)
+        led.size = 254
         led.showVarieties()
-        if kill_program == 1:
-            print('Exit')
-            led.turnOff()
-            break
+        #if kill_program == 1:
+         #   print('Exit')
+          #  led.turnOff()
+           # break
 
 # Get command line arguments
 args = storage_parser().parse_args()
@@ -85,8 +90,10 @@ server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 # Create clean exit signal
 signal.signal(signal.SIGINT, signal_handler)
 
+db = MongoDB.MongoDB()
+led = LED.LED(0, False)
 port = 1
-kill_program = 0
+kill_program = False
 
 # Start the two threads
 threadLED = threading.Thread(target=LEDShow, args=())
@@ -99,4 +106,3 @@ threadLED.start()
 threadMongo.start()
 
 threadMongo.join()
-threadLED.join()

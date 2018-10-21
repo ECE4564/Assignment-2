@@ -18,6 +18,6 @@ payload = prep(args)
 
 #setting up the RabbitMQ queue
 queue = sendClientRequest()
-print(" [x] Requesting fib(30)")
+print(" [x] Requesting")
 response = queue.call(payload)
 print(" [.] Got %r" % response)

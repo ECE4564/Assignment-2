@@ -44,7 +44,7 @@ def connectblue(messageFromClient):
     return send_command(messageFromClient)
 
 def on_request(ch, method, props, body):
-    clientMessage = json.loads(body)
+    clientMessage = json.loads(body.decode("utf-8"))
     print("["+time.ctime()+"]" + " Checkpoint  02: Recieved request payload : "+ str(body))
     response = connectblue(body)
 

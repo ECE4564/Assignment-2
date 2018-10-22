@@ -1,4 +1,5 @@
 import pika
+import json
 from src.argParser import client_parser
 from src.checkAction import check
 from src.clientPayload import prep
@@ -20,5 +21,6 @@ payload = prep(args)
 #setting up the RabbitMQ queue
 queue = sendClientRequest(ipadd)
 response = queue.call(payload)
-print(response.decode("utf-8"))
-print("["+time.ctime()+"]" + " Checkpoint  02: Response : "+ str(response))
+res = response.decode("utf-8").replace("{'Msg': '", "").replace("'}", "")
+
+print("["+time.ctime()+"]" + " Checkpoint  02: Response : "+ res)

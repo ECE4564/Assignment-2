@@ -20,9 +20,9 @@ def prep(args):
         author = d['Author']
         count = args.count_value
         dic = {
-                'Action ' : str(args.action_param),
-                'Msg ' : {
-                    'Book Info ' : {
+                'Action' : str(args.action_param),
+                'Msg' : {
+                    'Book Info' : {
                         'Name' : name,
                         'Author' : author
                     } ,
@@ -32,7 +32,7 @@ def prep(args):
         return (json.dumps(dic))
     elif args.action_param == 'LIST':
         dic = {
-                'Action ' : str(args.action_param),
-                'Msg ' : {}
+                'Action' : str(args.action_param),
+                'Msg' : {}
                 }
         return (json.dumps(dic))

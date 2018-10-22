@@ -46,23 +46,23 @@ def MongoControl():
 
         # update database based on received action
         #action = data["Action"]
-    ##    if action == "ADD":
-    ##        db_result = db.insert(data["Msg"]["Book Info"])
-    ##    elif action == "BUY":
-    ##        db.change_stock(data["Msg"]["Book Info"], data["Msg"]["Count"])
-    ##    elif action == "SELL":
-    ##        db.change_stock(data["Msg"]["Book Info"], -data["Msg"]["Count"])  # not sure if this will negate the value correctly
-    ##    elif action == "LIST":
-    ##        db_result = db.list_all()
-    ##    elif action == "DELETE":
-    ##        db.remove(data["Msg"]["Book Info"])
-    ##    elif action == "COUNT":
-    ##        book_list = db.list_all()
-    ##        in_stock = 0
-    ##        for book in book_list:
-    ##            if book["stock"] != 0:
-    ##                in_stock += 1
-    ##        db_result = "OK: " + str(in_stock) + " books in stock"
+       if action == "ADD":
+           db_result = db.insert(data["Msg"]["Book Info"])
+       elif action == "BUY":
+           db.change_stock(data["Msg"]["Book Info"], data["Msg"]["Count"])
+       elif action == "SELL":
+           db.change_stock(data["Msg"]["Book Info"], -data["Msg"]["Count"])  # not sure if this will negate the value correctly
+       elif action == "LIST":
+           db_result = db.list_all()
+       elif action == "DELETE":
+           db.remove(data["Msg"]["Book Info"])
+       elif action == "COUNT":
+           book_list = db.list_all()
+           in_stock = 0
+           for book in book_list:
+               if book["stock"] != 0:
+                   in_stock += 1
+           db_result = "OK: " + str(in_stock) + " books in stock"
 
         # send result
         # something like:

@@ -22,6 +22,7 @@ def signal_handler(sig, frame):
     threadMongo.join()
     sys.exit(0)
 
+    
 def MongoControl():
     while(led.stop == False):
         # Get mac address

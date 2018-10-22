@@ -19,17 +19,18 @@ def signal_handler(sig, frame):
     print("\nExitting program...")
     led.stop = True
     threadLED.join()
-    threadMongo.join()
     sys.exit(0)
 
-    
 def MongoControl():
     while(led.stop == False):
+        # Start bluetooth socket
+        server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+
         # Get mac address
         mac = get_bluetooth_mac_addr()
         print(strftime("[%H:%M:%S] ", gmtime()) + "Created socket at " + mac + " on port " + str(port)) 
         server_sock.bind(("",port))
-
+        
         # List for clients
         print(strftime("[%H:%M:%S] ", gmtime()) + "Listening for client connections")
         server_sock.listen(backlog)
@@ -80,9 +81,6 @@ def LEDShow():
 # Get command line arguments
 args = storage_parser().parse_args()
 
-# Start bluetooth socket
-server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
-
 # Create clean exit signal
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -102,3 +100,5 @@ threadMongo.daemon = True
 
 threadLED.start()
 threadMongo.start()
+
+threadMongo.join()

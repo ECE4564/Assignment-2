@@ -9,7 +9,7 @@ class MongoDB:
         # open default port and host (local client)
         self.client = pymongo.MongoClient()
         # generate book database
-        self.db = self.client.book_database  # lazy initialisation
+        self.db = self.client.db  # lazy initialisation
         self.collection = self.db.collection
         self.posts = self.db.posts
 

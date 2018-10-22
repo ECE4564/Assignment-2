@@ -21,6 +21,4 @@ payload = prep(args)
 #setting up the RabbitMQ queue
 queue = sendClientRequest(ipadd)
 response = queue.call(payload)
-res = response.decode("utf-8").replace("{'Msg': '", "").replace("'}", "")
-
-print("["+time.ctime()+"]" + " Checkpoint  02: Response : "+ res)
+print("["+time.ctime()+"]" + " Checkpoint  02: Response : "+ str(respose))

@@ -2,6 +2,7 @@ import pika
 import time
 import json
 from src.argParser import processor_parser
+import bluetooth
 
 args = processor_parser().parse_args()
 bt_strorage = args.bt_addr
@@ -18,35 +19,26 @@ channel.queue_declare(queue='rpc_queue')
 
 def send_command(command):
 	print("["+time.ctime()+"]" + " Checkpoint  03: Connecting to"+ bt_strorage +" on port " + port)
-	sock=bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-	sock.connect((bt_strorage, port)) #first port in bluetooth
+	sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+	sock.connect((bt_strorage, int(port))) #first port in bluetooth
 	
-	print ("Sending command (%s)" % command)
 	sock.send(command)
-	sock.settimeout(4)
+	
 	response = ""
-	try:
-		while True:
-			r = sock.recv(sock_size)
-			if not r:
-				break
-			response = response + r
-			if r: # we have reach end of message
-				break
-	except:
-		pass
-
+	r = sock.recv(int(sock_size))
+	print(r)
+	response = response + str(json.loads(r.decode("utf-8")))
+	
 	print("["+time.ctime()+"]" + " Checkpoint  04: Received answer payload :"+response)
-	sock.close() 
+	sock.close()
+	response = "YESS"
 	return response
 
-def connectblue(messageFromClient):
-    return send_command(messageFromClient)
 
 def on_request(ch, method, props, body):
     clientMessage = json.loads(body.decode("utf-8"))
     print("["+time.ctime()+"]" + " Checkpoint  02: Recieved request payload : "+ str(body))
-    response = connectblue(body)
+    response = send_command(body)
 
     ch.basic_publish(exchange='',
                     routing_key=props.reply_to,

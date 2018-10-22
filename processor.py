@@ -26,7 +26,6 @@ def send_command(command):
 	
 	response = ""
 	r = sock.recv(int(sock_size))
-	print(r)
 	response = response + str(json.loads(r.decode("utf-8")))
 	
 	print("["+time.ctime()+"]" + " Checkpoint  04: Received answer payload :"+response)

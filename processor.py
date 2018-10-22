@@ -31,7 +31,6 @@ def send_command(command):
 	
 	print("["+time.ctime()+"]" + " Checkpoint  04: Received answer payload :"+response)
 	sock.close()
-	response = "YESS"
 	return response
 
 

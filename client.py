@@ -19,7 +19,6 @@ payload = prep(args)
 
 #setting up the RabbitMQ queue
 queue = sendClientRequest(ipadd)
-print(" [x] Requesting")
 response = queue.call(payload)
-print(" [.] Got %r" % response)
+print(response.decode("utf-8"))
 print("["+time.ctime()+"]" + " Checkpoint  02: Response : "+ str(response))
